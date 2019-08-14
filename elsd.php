@@ -30,3 +30,21 @@ function elsd_styles() {
     wp_add_inline_style( 'elsd-style', $custom_css );
 }
 add_action( 'elementor/editor/before_enqueue_styles', 'elsd_styles' );
+
+function elsd_script() {
+    ?>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var viewPortWidth = 1366;
+                var winW = window.innerWidth;
+                var initialScale = winW/viewPortWidth;
+                var metaViewport = document.querySelectorAll('[name="viewport"]')[0];
+            
+                if(winW >=768 && winW <= 1366) {
+                    metaViewport.setAttribute('content', 'width=' + viewPortWidth + ', initial-scale=' + initialScale);
+                }
+            });
+        </script>
+    <?php
+}
+add_action( 'wp_head', 'elsd_script' );
